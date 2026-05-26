@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For my babbyyy 🌊</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: #0d1f35; color: #f0ebe0; font-family: 'Raleway', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+    .cursor { width: 8px; height: 8px; background: #c9a84c; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: screen; }
+    .cursor-ring { width: 24px; height: 24px; border: 1px solid #7ec8c8; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: 0.5; transition: left 0.1s ease, top 0.1s ease; }
+    .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .star { position: absolute; background: #fff; border-radius: 50%; animation: twinkle ease-in-out infinite; }
+    @keyframes twinkle { 0%,100% { opacity: 0.1; } 50% { opacity: 0.7; } }
+
+    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; position: relative; background: radial-gradient(ellipse at 50% 80%, #1a3a5c44 0%, transparent 60%), #0d1f35; }
+    .hero-label { font-size: 0.65rem; letter-spacing: 0.45em; text-transform: uppercase; color: #7ec8c8; margin-bottom: 1.5rem; opacity: 0; animation: up 0.8s ease 0.3s forwards; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 8vw, 6.5rem); font-weight: 400; line-height: 1.1; opacity: 0; animation: up 1.1s ease 0.6s forwards; }
+    .hero-title .gold { color: #c9a84c; font-style: italic; }
+    .hero-sub { margin-top: 1.5rem; font-size: 0.8rem; letter-spacing: 0.25em; color: #b8cfe8; opacity: 0; animation: up 0.9s ease 1s forwards; }
+    .wave { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; pointer-events: none; }
+
+    .letter-section { padding: 5rem 1.5rem; display: flex; justify-content: center; background: linear-gradient(180deg, #1a3a5c 0%, #0d1f35 100%); position: relative; z-index: 1; }
+    .letter-card { max-width: 600px; width: 100%; background: #ede5d0; color: #1c1c2e; padding: clamp(2rem, 5vw, 3.5rem); border-radius: 2px; position: relative; box-shadow: 0 0 0 1px rgba(201,168,76,0.25), 0 20px 60px rgba(0,0,0,0.5); opacity: 0; transform: translateY(40px) rotate(-0.4deg); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .letter-card.visible { opacity: 1; transform: translateY(0) rotate(0); }
+    .seal { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); background: #c9a84c; color: #0d1f35; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+    .from { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: #7a6a4a; margin-bottom: 2rem; }
+    .salutation { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; color: #1a3a5c; margin-bottom: 1.8rem; display: block; }
+    .body { font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height: 1.95; color: #2a2018; }
+    .body p + p { margin-top: 1.2rem; }
+    .body em { font-style: italic; color: #1a3a5c; }
+    .keyline { border-left: 2px solid #c9a84c; padding-left: 1rem; margin: 1.8rem 0; font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; color: #1a3a5c; line-height: 1.7; }
+    .sign { margin-top: 2.5rem; text-align: right; }
+    .sign .label { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: #9a8a6a; margin-bottom: 0.4rem; }
+    .sign .name { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; color: #1a3a5c; }
+
+    .closing { padding: 5rem 2rem; text-align: center; background: #0d1f35; position: relative; z-index: 1; }
+    .closing-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 3.5rem); font-style: italic; color: #f0ebe0; opacity: 0; transform: translateY(20px); transition: opacity 0.9s ease, transform 0.9s ease; }
+    .closing-title.visible { opacity: 1; transform: translateY(0); }
+    .closing-title span { color: #c9a84c; }
+    .closing-icons { margin-top: 1.5rem; font-size: 1.2rem; letter-spacing: 0.8rem; color: #c9a84c; opacity: 0; transition: opacity 0.9s ease 0.3s; }
+    .closing-icons.visible { opacity: 0.7; }
+
+    @keyframes up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+<div class="stars" id="stars"></div>
+
+<section class="hero">
+  <p class="hero-label">from your seaweed brain</p>
+  <h1 class="hero-title">my <span class="gold">wise girl,</span><br/>Aditi</h1>
+  <p class="hero-sub">🌊 just because · always ⚡</p>
+  <svg class="wave" viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,30 1440,40 L1440,80 L0,80 Z" fill="#1a3a5c" opacity="0.7"/>
+    <path d="M0,60 C300,20 600,70 900,50 C1100,35 1300,65 1440,55 L1440,80 L0,80 Z" fill="#0d1f35"/>
+  </svg>
+</section>
+
+<section class="letter-section">
+  <div class="letter-card" id="letter">
+    <div class="seal">🌊</div>
+    <p class="from">from your seaweed brain · just because</p>
+    <span class="salutation">Hey Buba,</span>
+    <div class="body">
+      <p>
+        No reason. No occasion. Just me,
+        thinking about you <em>again</em> —
+        and needing you to know it.
+      </p>
+      <p>
+        You are the most talented, most hardworking,
+        most dedicated person I know. You put your whole
+        heart into everything you do and somehow still
+        manage to be <em>the prettiest girl in every room.</em>
+        Honestly it's a little unfair.
+      </p>
+
+      <p>
+        You da besttttt, Babyyyyy. Genuinely, completely,
+        <em>the best.</em> And I am so so proud of you
+        of who you are, of everything you're building,
+        of how hard you show up every single day.
+      </p>
+
+      <p>
+        I love you so so much my pillaaa.
+        <em>More than the ocean. More than anything.</em>
+      </p>
+    </div>
+    <div class="sign">
+      <p class="label">yours, always & forever</p>
+      <span class="name">your seaweed brain ⚡</span>
+    </div>
+  </div>
+</section>
+
+<script>
+  const cur = document.getElementById('cursor');
+  const rng = document.getElementById('ring');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX+'px'; cur.style.top = e.clientY+'px';
+    setTimeout(() => { rng.style.left = e.clientX+'px'; rng.style.top = e.clientY+'px'; }, 90);
+  });
+  const st = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div'); s.className = 'star';
+    const sz = Math.random()*1.8+0.4;
+    s.style.cssText = `left:${Math.random()*100}vw;top:${Math.random()*100}vh;width:${sz}px;height:${sz}px;animation-duration:${2+Math.random()*3}s;animation-delay:${Math.random()*4}s`;
+    st.appendChild(s);
+  }
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.15 });
+  ['letter','ct','ci'].forEach(id => io.observe(document.getElementById(id)));
+</script>
+</body>
+</html>
